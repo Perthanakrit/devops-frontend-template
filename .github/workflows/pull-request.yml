@@ -1,0 +1,25 @@
+name: "Pull Request"
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+permissions:
+  contents: read
+env:
+  GO_VERSION: 1.23
+jobs:
+  lint-test:
+    name: "Lint and Test"
+    runs-on: "ubuntu-latest" # GitHub Actions Runner OS
+    steps:
+      - name: "Checkout"
+        uses: "actions/checkout@v4"
+
+      - name: "Set up Node.js"
+        uses: "actions/setup-node@v2"
+        with:
+          node-version: "20"
+      - name: "Install dependencies"
+        run: "npm install"
+          
+      - name: "Run Lint"
+        run: "npm run lint"
